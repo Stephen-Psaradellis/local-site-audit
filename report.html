@@ -1,0 +1,11 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Website check</title>
+<style>body{margin:0;background:#fff}iframe{border:0;width:100%;height:calc(100vh - 44px)}
+.bar{height:44px;display:flex;gap:8px;align-items:center;padding:0 16px;font:13px system-ui,sans-serif;background:#f3f4f6;border-bottom:1px solid #ddd}
+button{font:inherit;padding:5px 10px}@media print{.bar{display:none}iframe{height:auto}}</style>
+</head><body>
+<div class="bar"><button id="print">Print / save as PDF</button><button id="dl">Download HTML</button><span id="note"></span></div>
+<iframe id="doc" title="Report"></iframe>
+<script src="lib.js"></script>
+<script src="report.js"></script>
+</body></html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root { --bg:#fff; --fg:#14171a; --muted:#5b6670; --line:#e3e7eb; --accent:#1f6feb; --s5:#c62828; --s4:#d84315; --s3:#ef6c00; --s2:#a07800; --s1:#607d8b; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#16191d; --fg:#e8eaed; --muted:#9aa4ad; --line:#2c3238; --accent:#5b9dff; } }
+  body { width: 380px; margin: 0; font: 13px/1.4 system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+  header { padding: 12px 14px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+  h1 { font-size: 14px; margin: 0; }
+  main { padding: 12px 14px; }
+  button { font: inherit; padding: 7px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); cursor: pointer; }
+  button.primary { background: var(--accent); color: #fff; border-color: var(--accent); width: 100%; font-weight: 600; }
+  .row { display: flex; gap: 6px; margin-top: 8px; } .row button { flex: 1; }
+  .muted { color: var(--muted); font-size: 12px; }
+  ul { list-style: none; padding: 0; margin: 10px 0 0; }
+  li { border-top: 1px solid var(--line); padding: 7px 0; }
+  .sev { display: inline-block; min-width: 14px; text-align: center; font-weight: 700; color: #fff; border-radius: 3px; padding: 0 4px; margin-right: 6px; font-size: 11px; }
+  .s5{background:var(--s5)} .s4{background:var(--s4)} .s3{background:var(--s3)} .s2{background:var(--s2)} .s1{background:var(--s1)}
+  details summary { cursor: pointer; color: var(--muted); margin-top: 10px; }
+  label { display: block; margin-top: 6px; font-size: 12px; color: var(--muted); }
+  input { width: 100%; box-sizing: border-box; padding: 5px 6px; border: 1px solid var(--line); border-radius: 5px; background: var(--bg); color: var(--fg); font: inherit; }
+  #status { margin-top: 8px; min-height: 1em; }
+</style>
+</head>
+<body>
+<header><h1>Local Site Audit + Pitch</h1><span id="plan" class="muted"></span></header>
+<main>
+  <button id="run" class="primary">Audit this site</button>
+  <div id="status" class="muted"></div>
+  <div id="result" hidden>
+    <div id="summary"></div>
+    <ul id="list"></ul>
+    <div class="row"><button id="report">Client report</button><button id="pitch">Copy pitch email</button></div>
+    <p class="muted"><a id="mailcheck" target="_blank" rel="noopener">Check this domain's email forgery protection (SPF/DMARC)</a> - free, runs in your browser.</p>
+  </div>
+  <details>
+    <summary>Your details (go on the report and the email)</summary>
+    <label>Your name<input id="me_name"></label>
+    <label>Business / agency<input id="me_biz"></label>
+    <label>Email or phone<input id="me_contact"></label>
+    <label>Pro license key<input id="license" placeholder="LSA-XXXX-XXXX-XXXX"></label>
+    <div class="row"><button id="save">Save</button></div>
+    <p class="muted">Free: 3 audits a day; reports carry a small footer. Pro removes both. Everything stays in your browser - nothing is sent anywhere.</p>
+  </details>
+</main>
+<script src="lib.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>
