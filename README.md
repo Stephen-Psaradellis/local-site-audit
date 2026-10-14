@@ -48,6 +48,10 @@ Chrome, Edge, Brave or any Chromium browser:
 
 The free edition runs 3 audits a day and puts a small footer on reports.
 
+**Pro ($59 once):** unlimited audits, no footer. Use *Get a Pro key* in the popup (or email
+s.n.psaradellis@gmail.com with the subject "Local Site Audit Pro key"): you get a card invoice,
+and the key by email once it is paid.
+
 ## Related
 
 - Don't want to audit sites one by one? Lists of local businesses whose site is

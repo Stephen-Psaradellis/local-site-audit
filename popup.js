@@ -18,6 +18,8 @@ function pro() { return LSA.validLicense(state.license); }
 function paintPlan() {
   const left = LSA.quotaLeft(state.usage, today(), pro());
   $("plan").textContent = pro() ? "Pro" : `Free · ${left} left today`;
+  $("getpro").href = LSA.proMailto(state.me && state.me.contact);
+  $("getpro").parentElement.hidden = pro();
 }
 
 function paint(audit) {
@@ -36,7 +38,7 @@ function paint(audit) {
 
 $("run").addEventListener("click", async () => {
   const left = LSA.quotaLeft(state.usage, today(), pro());
-  if (left <= 0) { $("status").textContent = "Free limit reached for today. Add a Pro key below for unlimited audits."; return; }
+  if (left <= 0) { $("status").textContent = `Free limit reached for today. Pro (${LSA.PRO_PRICE} once) is unlimited - get a key under Your details.`; $("me_name").closest("details").open = true; return; }
   $("status").textContent = "Checking…";
   try {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });

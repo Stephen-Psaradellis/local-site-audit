@@ -95,7 +95,22 @@ ${rows}
     return d ? `${MAIL_CHECK}?d=${encodeURIComponent(d)}` : MAIL_CHECK;
   }
 
-  const api = { FREE_PER_DAY, MAIL_CHECK, mailCheckUrl, checksum, validLicense, quotaLeft, pitchEmail, reportHtml, bizName, esc };
+  // How a Pro key is bought: an email, answered with a card invoice (the same route as paid fixes);
+  // the key goes out once it is paid. No payment code in the extension.
+  const PRO_PRICE = "$59";
+  const PRO_EMAIL = "s.n.psaradellis@gmail.com";
+  function proMailto(contact) {
+    const body = [
+      `Hi - I'd like a Pro key for Local Site Audit + Pitch (${PRO_PRICE}, one time, unlimited audits, no report footer).`,
+      "",
+      `Send the card invoice to: ${contact || "(this address)"}`,
+      "",
+      "The key arrives by email once the invoice is paid.",
+    ].join("\n");
+    return `mailto:${PRO_EMAIL}?subject=${encodeURIComponent("Local Site Audit Pro key")}&body=${encodeURIComponent(body)}`;
+  }
+
+  const api = { FREE_PER_DAY, MAIL_CHECK, mailCheckUrl, PRO_PRICE, proMailto, checksum, validLicense, quotaLeft, pitchEmail, reportHtml, bizName, esc };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.LSA = api;
 })(typeof self !== "undefined" ? self : this);
