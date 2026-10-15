@@ -37,10 +37,12 @@ your browser.
 
 ## Install
 
-Store listings (Edge Add-ons, Firefox Add-ons) are on the way. Until then, in
-Chrome, Edge, Brave or any Chromium browser:
+**Microsoft Edge:** [install from Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/hcdpnkilmailiiljmaeldcomceoibajh) (one click, updates itself).
+Firefox Add-ons: in review.
 
-1. Download `local-site-audit-0.1.0-edge.zip` from the
+Chrome, Brave or any other Chromium browser:
+
+1. Download `local-site-audit-0.1.1-edge.zip` from the
    [latest release](https://github.com/Stephen-Psaradellis/local-site-audit/releases/latest)
    and unzip it (or clone this repo).
 2. Open `chrome://extensions` (or `edge://extensions`) and turn on **Developer mode**.
