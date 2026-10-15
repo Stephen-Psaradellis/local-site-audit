@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Local Site Audit + Pitch",
   "short_name": "Site Audit + Pitch",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "One click on any small-business website: a client-ready audit of real defects with evidence, plus a pitch email written from them.",
   "permissions": [
     "activeTab",

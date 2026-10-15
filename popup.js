@@ -19,7 +19,8 @@ function pro() { return LSA.validLicense(state.license); }
 function paintPlan() {
   const left = LSA.quotaLeft(state.usage, today(), pro());
   $("plan").textContent = pro() ? "Pro" : `Free · ${left} left today`;
-  $("getpro").href = LSA.proMailto(state.me && state.me.contact);
+  $("getpro").href = LSA.proHref(state.me && state.me.contact);
+  $("getpro_how").textContent = LSA.proHow();
   $("getpro").parentElement.hidden = pro();
   paintHistory();
 }
@@ -87,7 +88,7 @@ $("pitch").addEventListener("click", async () => {
 });
 
 $("csv").addEventListener("click", () => {
-  if (!pro()) { window.open(LSA.proMailto(state.me && state.me.contact)); return; }
+  if (!pro()) { window.open(LSA.proHref(state.me && state.me.contact)); return; }
   if (!state.history.length) { $("status").textContent = "No audits saved yet."; return; }
   const url = URL.createObjectURL(new Blob([LSA.historyCsv(state.history)], { type: "text/csv" }));
   const a = document.createElement("a");

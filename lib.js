@@ -110,6 +110,18 @@ ${rows}
     return `mailto:${PRO_EMAIL}?subject=${encodeURIComponent("Local Site Audit Pro key")}&body=${encodeURIComponent(body)}`;
   }
 
+  // Pay-first route: the Gumroad product (GUMROAD.md). It stays off until that product is published -
+  // a link to an unpublished product is a 404 - so flipping PRO_CHECKOUT_LIVE is the whole v0.1.3 change.
+  const PRO_BUY_URL = "https://localwebkit.gumroad.com/l/local-site-audit-pro";
+  const PRO_CHECKOUT_LIVE = true;
+  function proHref(contact, live = PRO_CHECKOUT_LIVE) {
+    return live ? `${PRO_BUY_URL}?wanted=true` : proMailto(contact);
+  }
+  function proHow(live = PRO_CHECKOUT_LIVE) {
+    return live ? "card checkout on Gumroad; the key arrives by email within 24 hours."
+                : "opens an email; you get a card invoice, and the key once it is paid.";
+  }
+
   // Audit history: every audit is remembered (one row per host, newest first) so a freelancer's audits
   // become their prospect list. Free shows the last FREE_HISTORY rows; Pro shows all and exports CSV.
   const HISTORY_MAX = 500;
@@ -139,7 +151,7 @@ ${rows}
     return [head].concat(rows).map(r => r.map(csvCell).join(",")).join("\r\n") + "\r\n";
   }
 
-  const api = { FREE_PER_DAY, MAIL_CHECK, mailCheckUrl, PRO_PRICE, proMailto, checksum, validLicense, quotaLeft, pitchEmail, reportHtml, bizName, esc,
+  const api = { FREE_PER_DAY, MAIL_CHECK, mailCheckUrl, PRO_PRICE, proMailto, PRO_BUY_URL, PRO_CHECKOUT_LIVE, proHref, proHow, checksum, validLicense, quotaLeft, pitchEmail, reportHtml, bizName, esc,
     HISTORY_MAX, FREE_HISTORY, historyEntry, addHistory, visibleHistory, csvCell, historyCsv };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.LSA = api;
