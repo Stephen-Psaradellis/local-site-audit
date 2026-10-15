@@ -1,11 +1,12 @@
 const $ = id => document.getElementById(id);
 const store = chrome.storage.local;
 const today = () => new Date().toISOString().slice(0, 10);
-let state = { me: {}, license: "", usage: null, last: null };
+let state = { me: {}, license: "", usage: null, last: null, history: [] };
 
 async function load() {
-  state = Object.assign(state, await store.get(["me", "license", "usage", "last"]));
+  state = Object.assign(state, await store.get(["me", "license", "usage", "last", "history"]));
   state.me = state.me || {};
+  state.history = state.history || [];
   $("me_name").value = state.me.name || "";
   $("me_biz").value = state.me.biz || "";
   $("me_contact").value = state.me.contact || "";
@@ -20,6 +21,25 @@ function paintPlan() {
   $("plan").textContent = pro() ? "Pro" : `Free · ${left} left today`;
   $("getpro").href = LSA.proMailto(state.me && state.me.contact);
   $("getpro").parentElement.hidden = pro();
+  paintHistory();
+}
+
+function paintHistory() {
+  const all = state.history, shown = LSA.visibleHistory(all, pro());
+  $("hist_sum").textContent = `Audit history (${all.length})`;
+  $("hist_list").replaceChildren(...shown.map(h => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = h.url; a.target = "_blank"; a.rel = "noopener"; a.textContent = h.business;
+    const m = document.createElement("div");
+    m.className = "muted"; m.textContent = `${h.host} · ${h.issues} issue${h.issues === 1 ? "" : "s"} · ${h.date}${h.top ? ` · ${h.top}` : ""}`;
+    li.append(a, m);
+    return li;
+  }));
+  const hidden = all.length - shown.length;
+  $("hist_more").hidden = hidden <= 0;
+  $("hist_more").textContent = `${hidden} older audit${hidden === 1 ? "" : "s"} saved - Pro shows them all and exports the list.`;
+  $("csv").textContent = pro() ? "Export CSV" : `Export CSV (Pro, ${LSA.PRO_PRICE} once)`;
 }
 
 function paint(audit) {
@@ -49,7 +69,8 @@ $("run").addEventListener("click", async () => {
     state.last = audit;
     const u = state.usage && state.usage.day === today() ? state.usage : { day: today(), count: 0 };
     u.count += 1; state.usage = u;
-    await store.set({ last: audit, usage: u });
+    state.history = LSA.addHistory(state.history, LSA.historyEntry(audit));
+    await store.set({ last: audit, usage: u, history: state.history });
     $("status").textContent = "";
     paint(audit); paintPlan();
   } catch (e) {
@@ -63,6 +84,17 @@ $("pitch").addEventListener("click", async () => {
   if (!state.last) return;
   await navigator.clipboard.writeText(LSA.pitchEmail(state.last, state.me, state.me.price));
   $("status").textContent = "Pitch email copied - paste it into your mail app and attach the report.";
+});
+
+$("csv").addEventListener("click", () => {
+  if (!pro()) { window.open(LSA.proMailto(state.me && state.me.contact)); return; }
+  if (!state.history.length) { $("status").textContent = "No audits saved yet."; return; }
+  const url = URL.createObjectURL(new Blob([LSA.historyCsv(state.history)], { type: "text/csv" }));
+  const a = document.createElement("a");
+  a.href = url; a.download = `site-audits-${today()}.csv`;
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+  $("status").textContent = `Exported ${state.history.length} audit${state.history.length === 1 ? "" : "s"}.`;
 });
 
 $("save").addEventListener("click", async () => {

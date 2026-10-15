@@ -110,7 +110,37 @@ ${rows}
     return `mailto:${PRO_EMAIL}?subject=${encodeURIComponent("Local Site Audit Pro key")}&body=${encodeURIComponent(body)}`;
   }
 
-  const api = { FREE_PER_DAY, MAIL_CHECK, mailCheckUrl, PRO_PRICE, proMailto, checksum, validLicense, quotaLeft, pitchEmail, reportHtml, bizName, esc };
+  // Audit history: every audit is remembered (one row per host, newest first) so a freelancer's audits
+  // become their prospect list. Free shows the last FREE_HISTORY rows; Pro shows all and exports CSV.
+  const HISTORY_MAX = 500;
+  const FREE_HISTORY = 3;
+  function historyEntry(audit) {
+    const d = audit.defects || [];
+    const top = d[0] || null;
+    return { host: audit.host, url: audit.url, business: bizName(audit), date: String(audit.checkedAt || "").slice(0, 10),
+      issues: d.length, top: top ? top.what : "", topSeverity: top ? top.severity : 0 };
+  }
+  function addHistory(list, entry, max) {
+    const rest = (list || []).filter(x => x && x.host !== entry.host);
+    return [entry].concat(rest).slice(0, max || HISTORY_MAX);
+  }
+  function visibleHistory(list, pro) {
+    return pro ? (list || []) : (list || []).slice(0, FREE_HISTORY);
+  }
+  // A cell starting with = + - @ (or a tab/CR) is a formula to a spreadsheet; page titles are untrusted.
+  function csvCell(v) {
+    let s = String(v == null ? "" : v);
+    if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+    return /[",\r\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  }
+  function historyCsv(list) {
+    const head = ["date", "business", "host", "url", "issues", "top_issue", "top_severity"];
+    const rows = (list || []).map(x => [x.date, x.business, x.host, x.url, x.issues, x.top, SEV_LABEL[x.topSeverity] || ""]);
+    return [head].concat(rows).map(r => r.map(csvCell).join(",")).join("\r\n") + "\r\n";
+  }
+
+  const api = { FREE_PER_DAY, MAIL_CHECK, mailCheckUrl, PRO_PRICE, proMailto, checksum, validLicense, quotaLeft, pitchEmail, reportHtml, bizName, esc,
+    HISTORY_MAX, FREE_HISTORY, historyEntry, addHistory, visibleHistory, csvCell, historyCsv };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.LSA = api;
 })(typeof self !== "undefined" ? self : this);

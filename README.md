@@ -42,15 +42,15 @@ Firefox Add-ons: in review.
 
 Chrome, Brave or any other Chromium browser:
 
-1. Download `local-site-audit-0.1.1-edge.zip` from the
+1. Download `local-site-audit-0.1.2-edge.zip` from the
    [latest release](https://github.com/Stephen-Psaradellis/local-site-audit/releases/latest)
    and unzip it (or clone this repo).
 2. Open `chrome://extensions` (or `edge://extensions`) and turn on **Developer mode**.
 3. Click **Load unpacked** and pick the unzipped folder.
 
-The free edition runs 3 audits a day and puts a small footer on reports.
+Every audit is saved in the popup's *Audit history* (one row per site: business, date, issue count, top issue), so your audits become a prospect list. The free edition runs 3 audits a day, shows the last 3 in the history and puts a small footer on reports.
 
-**Pro ($59 once):** unlimited audits, no footer. Use *Get a Pro key* in the popup (or email
+**Pro ($59 once):** unlimited audits, the full history with *Export CSV*, no footer. Use *Get a Pro key* in the popup (or email
 s.n.psaradellis@gmail.com with the subject "Local Site Audit Pro key"): you get a card invoice,
 and the key by email once it is paid.
 
