@@ -56,6 +56,8 @@ your purchase email within 24 hours. 14-day refund, no questions.
 
 ## Related
 
+- No extension installed, or on a phone? The [free website check](https://stephen-psaradellis.github.io/demos/site-check.html)
+  runs the core checks on any address in a browser tab, each with a step-by-step fix.
 - Don't want to audit sites one by one? Lists of local businesses whose site is
   down or broken, with the evidence already found, by city and business type:
   [prospect packs](https://stephen-psaradellis.github.io/demos/prospect-packs.html)
