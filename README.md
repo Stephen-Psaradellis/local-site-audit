@@ -20,6 +20,10 @@ browsers block on a secure page, no mobile viewport, images with no alt text,
 oversized images, an exposed WordPress version, a footer still showing an old
 copyright year, broken links, a missing title or meta description.
 
+Each issue in the popup links to a plain-English fix guide you can follow
+yourself or forward to the site owner. The client report stays yours: it
+carries no links of ours.
+
 These are the faults found most often when scanning 43,000 US small-business
 websites: 13,662 had images with no alt text, 7,646 showed a phone number
 visitors could not tap, 4,338 still showed an old copyright year, and 2,202 did
@@ -42,7 +46,7 @@ Firefox Add-ons: in review.
 
 Chrome, Brave or any other Chromium browser:
 
-1. Download `local-site-audit-0.1.2-edge.zip` from the
+1. Download `local-site-audit-0.1.4-edge.zip` from the
    [latest release](https://github.com/Stephen-Psaradellis/local-site-audit/releases/latest)
    and unzip it (or clone this repo).
 2. Open `chrome://extensions` (or `edge://extensions`) and turn on **Developer mode**.

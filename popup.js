@@ -53,6 +53,12 @@ function paint(audit) {
     const s = document.createElement("span");
     s.className = `sev s${d.severity}`; s.textContent = d.severity;
     li.append(s, document.createTextNode(d.what));
+    const g = LSA.guideUrl(d.code);
+    if (g) {
+      const a = document.createElement("a");
+      a.href = g; a.target = "_blank"; a.rel = "noopener"; a.className = "guide"; a.textContent = "fix guide";
+      li.append(" ", a);
+    }
     return li;
   }));
 }

@@ -151,7 +151,19 @@ ${rows}
     return [head].concat(rows).map(r => r.map(csvCell).join(",")).join("\r\n") + "\r\n";
   }
 
-  const api = { FREE_PER_DAY, MAIL_CHECK, mailCheckUrl, PRO_PRICE, proMailto, PRO_BUY_URL, PRO_CHECKOUT_LIVE, proHref, proHow, checksum, validLicense, quotaLeft, pitchEmail, reportHtml, bizName, esc,
+  // One fix guide per check (products/fix-guides). Popup only: the client report stays the freelancer's own.
+  const GUIDE_BASE = "https://stephen-psaradellis.github.io/demos/";
+  const GUIDES = {
+    no_https: "not-secure-fix.html", mixed_content: "not-secure-fix.html", no_viewport: "phone-view-fix.html",
+    phone_not_tappable: "tap-to-call-fix.html", no_alt: "photo-descriptions-fix.html", huge_images: "slow-photos-fix.html",
+    no_meta_description: "search-snippet-fix.html", no_title: "page-title-fix.html",
+    wp_version_exposed: "wordpress-version-fix.html", stale_year: "old-year-fix.html", broken_links: "pages-404-fix.html",
+  };
+  function guideUrl(code) {
+    return GUIDES[code] ? GUIDE_BASE + GUIDES[code] : "";
+  }
+
+  const api = { FREE_PER_DAY, MAIL_CHECK, mailCheckUrl, GUIDES, guideUrl, PRO_PRICE, proMailto, PRO_BUY_URL, PRO_CHECKOUT_LIVE, proHref, proHow, checksum, validLicense, quotaLeft, pitchEmail, reportHtml, bizName, esc,
     HISTORY_MAX, FREE_HISTORY, historyEntry, addHistory, visibleHistory, csvCell, historyCsv };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.LSA = api;
