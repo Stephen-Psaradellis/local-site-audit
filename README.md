@@ -42,7 +42,7 @@ your browser.
 ## Install
 
 **Microsoft Edge:** [install from Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/hcdpnkilmailiiljmaeldcomceoibajh) (one click, updates itself).
-Firefox Add-ons: in review.
+**Firefox:** [install from Firefox Add-ons](https://addons.mozilla.org/firefox/addon/local-site-audit-pitch/) (one click, updates itself).
 
 Chrome, Brave or any other Chromium browser:
 
