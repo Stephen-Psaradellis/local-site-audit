@@ -1,5 +1,7 @@
 # Local Site Audit + Pitch
 
+**Install free:** [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/local-site-audit-pitch/) | [Microsoft Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/hcdpnkilmailiiljmaeldcomceoibajh)
+
 A browser extension for web designers, freelancers and small agencies who win
 clients by showing them what is wrong with their current website.
 
