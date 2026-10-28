@@ -72,6 +72,8 @@ your purchase email within 24 hours. 14-day refund, no questions.
   [email-forgery-check](https://stephen-psaradellis.github.io/demos/email-forgery-check.html).
 - On WordPress? [Mailwick Site Audit](https://github.com/Stephen-Psaradellis/mailwick-site-audit)
   runs similar checks from inside the site.
+- Old copyright year in the footer (one of the most common findings)? On WordPress,
+  [Mailwick Copyright Year](https://wordpress.org/plugins/mailwick-copyright-year/) keeps it current for free.
 
 Written with an AI system (Claude) under my direction; I review and maintain it.
 Issues and pull requests welcome.
